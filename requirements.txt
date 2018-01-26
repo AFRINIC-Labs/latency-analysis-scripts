@@ -1,4 +1,4 @@
-jupyter
-matplotlib
-geoip2
-networkx
+jupyter==1.0.0
+matplotlib==2.1.1
+geoip2==2.7.0
+networkx==2.1
