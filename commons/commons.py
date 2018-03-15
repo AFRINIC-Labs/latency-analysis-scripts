@@ -252,7 +252,7 @@ import geoip2.database as geo
 
 def get_cc_from_ip_address(ip_address):
     
-    cc = get_geo_info_from_ip_address(ip_address)
+    cc = get_geo_info_from_ip_address(ip_address).country.iso_code
     if cc is None:
         return 'XX'
 
