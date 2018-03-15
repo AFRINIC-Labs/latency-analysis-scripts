@@ -45,7 +45,9 @@ def build_dict(results, weight_attribute='avg_rtt', origin_attribute='country_or
                 cc_dict[cc_d] = rtt
         region_dict[cc_o] = cc_dict
     update_progress(100.0)
-    print 'Omitted ', omitted
+    if len(omitted) > 0:
+	print
+        print 'Omitted ', omitted
     return region_dict
 
 from matplotlib import pyplot as plt
@@ -267,41 +269,37 @@ import json
 from requests import get
 
 def atlas_reader(url):
-    
-    response = json.loads(get(url).text)
-    
-    results = response['results']
-    
-    if response['next'] is not None:
-        res = atlas_reader(response['next'])
-        results += res
-    return results
+    return json.loads(get(url).text)
 
-cluster_speed = {'BF': 0, 'DJ': 0, 'BI': 1, 'BJ': 2, 'BW': 3, 'DZ': 2, 'TZ': 1, 'NA': 3, 'NG': 0, 'TN': 2, 'LR': 2, 'LS': 3, 'TG': 0, 'TD': 0, 'LY': 2, 'ZM': 3, 'CI': 0, 'CM': 0, 'EG': 2, 'ZA': 3, 'CD': 0, 'GA': 0, 'GM': 0, 'ZW': 3, 'GH': 0, 'MG': 2, 'MA': 2, 'KE': 1, 'ML': 2, 'MW': 3, 'SO': 0, 'SN': 2, 'SL': 0, 'SC': 2, 'UG': 1, 'MZ': 3, 'SD': 2}
-cluster_atlas = {'BF': 0, 'BI': 1, 'BJ': 0, 'BW': 2, 'DZ': 0, 'RW': 3, 'TZ': 0, 'CM': 0, 'NA': 4, 'NG': 0, 'TN': 0, 'RE': 0, 'LR': 0, 'LS': 5, 'TG': 0, 'LY': 0, 'ZM': 5, 'CI': 0, 'GQ': 0, 'EG': 0, 'MR': 0, 'CG': 0, 'ZA': 5, 'AO': 0, 'CD': 0, 'GA': 0, 'ET': 6, 'GM': 0, 'ZW': 5, 'CV': 0, 'GH': 0, 'SZ': 5, 'MG': 7, 'MA': 0, 'KE': 0, 'ML': 0, 'MU': 0, 'MW': 0, 'SO': 6, 'SN': 0, 'SL': 0, 'SC': 0, 'UG': 8, 'SD': 0, 'MZ': 5}
-cluster_names_speed = {
-    0: 'Western',
-    1: 'Eastern',
-    2: 'Northern',
-    3: 'Southern',
-    5: 'S. America',
-    6: 'N. America',
-    7: 'Europe',
-    8: 'Arabia',
-    9: 'Asia'
-}
-cluster_colors = {
-    0: '#00B1E2',
-    1: '#A8C023',
-    2: '#FF9D00',
-    3: '#DB3B29',
-    4: 'cyan',
-    5:'grey',
-    6:'grey',
-    7:'grey',
-    8:'grey',
-    9:'grey'
-}
+
+
+
+
+# cluster_speed = {'BF': 0, 'DJ': 0, 'BI': 1, 'BJ': 2, 'BW': 3, 'DZ': 2, 'TZ': 1, 'NA': 3, 'NG': 0, 'TN': 2, 'LR': 2, 'LS': 3, 'TG': 0, 'TD': 0, 'LY': 2, 'ZM': 3, 'CI': 0, 'CM': 0, 'EG': 2, 'ZA': 3, 'CD': 0, 'GA': 0, 'GM': 0, 'ZW': 3, 'GH': 0, 'MG': 2, 'MA': 2, 'KE': 1, 'ML': 2, 'MW': 3, 'SO': 0, 'SN': 2, 'SL': 0, 'SC': 2, 'UG': 1, 'MZ': 3, 'SD': 2}
+# cluster_atlas = {'BF': 0, 'BI': 1, 'BJ': 0, 'BW': 2, 'DZ': 0, 'RW': 3, 'TZ': 0, 'CM': 0, 'NA': 4, 'NG': 0, 'TN': 0, 'RE': 0, 'LR': 0, 'LS': 5, 'TG': 0, 'LY': 0, 'ZM': 5, 'CI': 0, 'GQ': 0, 'EG': 0, 'MR': 0, 'CG': 0, 'ZA': 5, 'AO': 0, 'CD': 0, 'GA': 0, 'ET': 6, 'GM': 0, 'ZW': 5, 'CV': 0, 'GH': 0, 'SZ': 5, 'MG': 7, 'MA': 0, 'KE': 0, 'ML': 0, 'MU': 0, 'MW': 0, 'SO': 6, 'SN': 0, 'SL': 0, 'SC': 0, 'UG': 8, 'SD': 0, 'MZ': 5}
+# cluster_names_speed = {
+#     0: 'Western',
+#     1: 'Eastern',
+#     2: 'Northern',
+#     3: 'Southern',
+#     5: 'S. America',
+#     6: 'N. America',
+#     7: 'Europe',
+#     8: 'Arabia',
+#     9: 'Asia'
+# }
+# cluster_colors = {
+#     0: '#00B1E2',
+#     1: '#A8C023',
+#     2: '#FF9D00',
+#     3: '#DB3B29',
+#     4: 'cyan',
+#     5:'grey',
+#     6:'grey',
+#     7:'grey',
+#     8:'grey',
+#     9:'grey'
+# }
 
 import networkx as nx
 import matplotlib.pyplot as plt

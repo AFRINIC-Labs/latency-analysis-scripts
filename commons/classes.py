@@ -130,10 +130,9 @@ class Result():
                 r.avg_rtt = np.mean(r.rtt_list)
                 r.med_rtt = np.median(r.rtt_list)
 
-#         if 'country_origin' in _json.keys():
-#             r.country_origin = _json['country_origin']
-#         if 'country_destination' in _json.keys():
-#             r.country_destination = _json['country_destination']
+	# country_origin and country_destination should 
+	# come from probe information and geolocation DB
+
 #         if 'as_origin' in _json.keys():
 #             r.as_origin = _json['as_origin']
 #         if 'as_destination' in _json.keys():
@@ -141,14 +140,12 @@ class Result():
         if 'src_addr' in _json.keys():
             r.ip_origin = _json['src_addr']
         if 'dst_addr' in _json.keys():
-            r.ip_origin = _json['dst_addr']
+            r.ip_destination = _json['dst_addr']
 
         if 'timestamp' in _json.keys():
             r.date_utc = datetime.fromtimestamp(_json['timestamp'])
 #         if 'date_target' in _json.keys():
 #             r.date_target = datetime.strptime(_json['date_target'][:-6], date_format)
-#         if 'date_utc' in _json.keys():
-#             r.date_utc = datetime.strptime(_json['date_utc'][:-6], date_format)
         return r
 
     @staticmethod
