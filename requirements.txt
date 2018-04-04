@@ -4,3 +4,4 @@ geoip2==2.7.0
 networkx==2.1
 netaddr==0.7.19
 python-louvain==0.10
+scipy==1.0.0

@@ -15,16 +15,17 @@ from sys import stdout
 from numpy import mean, median
 import networkx as nx
 
-def update_progress(progress):
-    stdout.write("\rBuilding dict %.2f%%" % (1.0 * progress))
+def update_progress(progress, txt="Progress"):
+    stdout.write("\r{txt}: {n:.2f}%".format(txt=txt, n=1.0 * n))
     stdout.flush()
     
-def build_dict(results, weight_attribute='avg_rtt', origin_attribute='country_origin', destination_attribute='country_destination', min_squares=0):
+def build_dict(results, weight_attribute='avg_rtt', origin_attribute='country_origin', destination_attribute='country_destination', omitted=[],  min_squares=0):
     
     ccs = list(set([getattr(r, origin_attribute) for r in results] + [getattr(r, destination_attribute) for r in results]))
     N = len(ccs)
     region_dict = defaultdict(None)
 
+    # omitted = [o for o in results for d in results]
     omitted = []
     for i, cc_o in enumerate(ccs):
         
@@ -39,6 +40,8 @@ def build_dict(results, weight_attribute='avg_rtt', origin_attribute='country_or
 
         cc_dict = defaultdict(None)
         for cc_d in ccs:
+            if cc_d in omitted: continue
+
             rtts = [getattr(r, weight_attribute) for r in rs if getattr(r, destination_attribute) == cc_d]
             if len(rtts) > 0:
                 rtt = mean(rtts)
@@ -252,7 +255,12 @@ import geoip2.database as geo
 
 def get_cc_from_ip_address(ip_address):
     
-    cc = get_geo_info_from_ip_address(ip_address).country.iso_code
+    geo_info = get_geo_info_from_ip_address(ip_address)
+    
+    if geo_info == None:
+        return 'XX'
+    
+    cc = geo_info.country.iso_code
     if cc is None:
         return 'XX'
 
@@ -315,3 +323,7 @@ def generate_graph(rs, inverse=False):
         if e[0] == e[1]:
             G.remove_edge(e[0], e[1])
     return G
+
+
+def nesteddefaultdict():
+    return defaultdict(nesteddefaultdict)
