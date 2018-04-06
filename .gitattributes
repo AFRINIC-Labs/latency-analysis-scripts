@@ -1,3 +1,4 @@
 *.png filter=lfs diff=lfs merge=lfs -text
-ripencc/output/**
-ripencc/input/**
+ripencc/output/** filter=lfs diff=lfs merge=lfs -text
+ripencc/input/** filter=lfs diff=lfs merge=lfs -text
+*.ipynb filter=lfs diff=lfs merge=lfs -text
