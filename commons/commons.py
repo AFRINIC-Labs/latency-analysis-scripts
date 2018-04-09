@@ -16,7 +16,7 @@ from numpy import mean, median
 import networkx as nx
 
 def update_progress(progress, txt="Progress"):
-    stdout.write("\r{txt}: {n:.2f}%".format(txt=txt, n=1.0 * n))
+    stdout.write("\r{txt}: {progress:.2f}%".format(txt=txt, progress=progress))
     stdout.flush()
     
 def build_dict(results, weight_attribute='avg_rtt', origin_attribute='country_origin', destination_attribute='country_destination', omitted=[],  min_squares=0):
